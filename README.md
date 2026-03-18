@@ -5,15 +5,16 @@
 ![Repo Size](https://img.shields.io/github/repo-size/alienindisgui-se/instagram-stories-tracker?style=for-the-badge&color=blue)
 ![License](https://img.shields.io/github/license/alienindisgui-se/instagram-stories-tracker?style=for-the-badge&color=green)
 
-![CI](https://img.shields.io/github/actions/workflow/status/alienindisgui-se/instagram-stories-tracker/instagram-stories-tracker.yml?label=CI&logo=github&style=for-the-badge&color=0099FF) ![Every 6h](https://img.shields.io/badge/Schedule-Every%206h-blue?style=for-the-badge&logo=github)
+![CI](https://img.shields.io/github/actions/workflow/status/alienindisgui-se/instagram-stories-tracker/instagram-stories-tracker.yml?label=CI&logo=github&style=for-the-badge&color=0099FF) ![Every 4h](https://img.shields.io/badge/Schedule-Every%204h-blue?style=for-the-badge&logo=github)
 
 A Python-based system for automated Instagram stories tracking with periodic monitoring, Discord webhook notifications, story media uploads, analytics tracking, and historical data management.
 
 ## 🚀 Features
 
-- **📊 Periodic Monitoring**: Stories tracking every 6 hours with new story detection
+- **📊 Periodic Monitoring**: Stories tracking every 4 hours with new story detection
 - **🤖 Automated Execution**: GitHub Actions with scheduled runs and manual triggers
 - **💬 Discord Notifications**: Batched embed reports with story media uploads and user statistics
+- **🔽 Video Compression**: Automatic compression of oversized videos using FFmpeg
 - **📈 Analytics Tracking**: Total stories, daily counts, average per day, tracking days
 - **🔒 Security-First**: Cloudflare bypass with cloudscraper, error handling, and retries
 - **🔄 Historical Data**: JSON-based storage with automatic story ID tracking and deduplication
@@ -41,6 +42,7 @@ instagram-stories-tracker/
 ### Prerequisites
 
 - Python 3.11+
+- FFmpeg (for video compression)
 - GitHub repository (for automation)
 - Discord server (for notifications)
 
@@ -99,7 +101,7 @@ The system stores story data in JSON files:
 
 | Workflow | Schedule | Description |
 |----------|----------|-------------|
-| Stories Tracker | `0 0,6,12,18 * * *` | Runs every 6 hours at 00:00, 06:00, 12:00, 18:00 UTC |
+| Stories Tracker | `0 0,4,8,12,16,20 * * *` | Runs every 4 hours at 00:00, 04:00, 08:00, 12:00, 16:00, 20:00 UTC |
 
 ### Required GitHub Secrets
 
@@ -110,7 +112,39 @@ The system stores story data in JSON files:
 
 The workflow supports manual triggering via the GitHub Actions UI.
 
-## 💬 Discord Integration
+## �️ Video Compression
+
+The system automatically compresses oversized videos to meet Discord's file size limits:
+
+### Compression Features
+
+- **Automatic Detection**: Videos exceeding 10MB trigger compression
+- **FFmpeg Integration**: Uses industry-standard FFmpeg for quality compression
+- **Smart Targeting**: Compresses to ~8MB to stay safely under Discord's 10MB limit
+- **Quality Preservation**: Maintains acceptable quality for Instagram stories
+- **Comprehensive Logging**: Tracks original size, compressed size, and compression ratios
+
+### Compression Process
+
+1. **Size Check**: Videos larger than 10MB are flagged for compression
+2. **FFmpeg Processing**: Reduces resolution (max 1280px width) and optimizes bitrate
+3. **Quality Verification**: Ensures compressed file stays under size limit
+4. **Fallback Handling**: Skips file if compression fails or remains too large
+
+### Requirements
+
+- FFmpeg must be installed and accessible in system PATH
+- `ffmpeg-python` package (included in requirements)
+
+### Example Log Output
+
+```
+2026-03-18 13:57:25 - INFO - Compressing realbaronen_385370747587897.mp4 (10.48MB)
+2026-03-18 13:57:26 - INFO - Successfully compressed realbaronen_385370747587897.mp4: 10.48MB → 7.23MB (31.0% reduction)
+2026-03-18 13:57:26 - INFO - Using compressed version for realbaronen_385370747587897.mp4
+```
+
+## � Discord Integration
 
 ### Notification Format
 
@@ -183,8 +217,14 @@ python scripts/instagram_stories_tracker.py
 - Check network connectivity
 
 #### "Media upload failed"
-- Check file size (8MB limit)
-- Verify Discord permissions
+- Check file size (10MB limit for free Discord)
+- Verify FFmpeg is installed for video compression
+- Check Discord permissions
+
+#### "FFmpeg not available"
+- Install FFmpeg and ensure it's in system PATH
+- Verify `ffmpeg-python` package is installed
+- Check compression logs for specific errors
 
 ## 📄 License
 
