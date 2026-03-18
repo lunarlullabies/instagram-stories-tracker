@@ -72,5 +72,13 @@
         },
         "first_seen": "2026-03-08",
         "last_seen": "2026-03-18"
+    },
+    "danjalxclusive": {
+        "total_stories": 2,
+        "daily_counts": {
+            "2026-03-18": 2
+        },
+        "first_seen": "2026-03-18",
+        "last_seen": "2026-03-18"
     }
 }
