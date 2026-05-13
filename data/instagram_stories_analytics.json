@@ -300,25 +300,26 @@
         "last_seen": "2026-04-24"
     },
     "pontusbjorlund": {
-        "total_stories": 25,
+        "total_stories": 26,
         "daily_counts": {
             "2026-05-09": 14,
             "2026-05-10": 2,
             "2026-05-11": 5,
             "2026-05-12": 2,
-            "2026-05-13": 2
+            "2026-05-13": 3
         },
         "first_seen": "2026-05-09",
         "last_seen": "2026-05-13"
     },
     "stefanhallgren": {
-        "total_stories": 7,
+        "total_stories": 10,
         "daily_counts": {
             "2026-05-10": 2,
             "2026-05-11": 2,
-            "2026-05-12": 3
+            "2026-05-12": 3,
+            "2026-05-13": 3
         },
         "first_seen": "2026-05-10",
-        "last_seen": "2026-05-12"
+        "last_seen": "2026-05-13"
     }
 }
