@@ -563,10 +563,10 @@
         "last_seen": "2026-06-28"
     },
     "pocketpays": {
-        "total_stories": 4,
+        "total_stories": 5,
         "daily_counts": {
             "2026-07-04": 2,
-            "2026-07-05": 2
+            "2026-07-05": 3
         },
         "first_seen": "2026-07-04",
         "last_seen": "2026-07-05"
